@@ -29,12 +29,64 @@ import Layout from "../layouts/Layout.astro";
       "walk-up": { from: 8, to: 11, loop: true, speed: 8 },
     },
   });
+
+  k.loadSprite("segunda", "./SegundaEv.png", {
+    sliceX: 4,
+    sliceY: 4,
+    anims: {
+      "idle-down": 0,
+      "walk-down": { from: 0, to: 3, loop: true, speed: 8 },
+      "idle-side": 4,
+      "walk-side": { from: 4, to: 7, loop: true, speed: 8 },
+      "idle-up": 8,
+      "walk-up": { from: 8, to: 11, loop: true, speed: 8 },
+    },
+  });
+
+  k.loadSprite("tercera", "./TerceraEv.png", {
+    sliceX: 4,
+    sliceY: 4,
+    anims: {
+      "idle-down": 0,
+      "walk-down": { from: 0, to: 3, loop: true, speed: 8 },
+      "idle-side": 4,
+      "walk-side": { from: 4, to: 7, loop: true, speed: 8 },
+      "idle-up": 8,
+      "walk-up": { from: 8, to: 11, loop: true, speed: 8 },
+    },
+  });
+
+  k.loadSprite("cuarta", "./CuartaEv.png", {
+    sliceX: 4,
+    sliceY: 4,
+    anims: {
+      "idle-down": 0,
+      "walk-down": { from: 0, to: 3, loop: true, speed: 8 },
+      "idle-side": 4,
+      "walk-side": { from: 4, to: 7, loop: true, speed: 8 },
+      "idle-up": 8,
+      "walk-up": { from: 8, to: 11, loop: true, speed: 8 },
+    },
+  });
+
   const player = k.add([
-    k.sprite("primera", { anim: "indle-down" }),
+    k.sprite("primera", { anim: "idle-down" }),
     k.scale(10),
-    k.pos(k.center()),
+    k.pos(250, 100),
     k.anchor("center"),
   ]);
+
+  k.onUpdate("player", (player) => {
+    if (player.pos.y > 400) {
+      player.use(k.sprite("cuarta"));
+    } else if (player.pos.y > 300) {
+      player.use(k.sprite("tercera"));
+    } else if (player.pos.y > 200) {
+      player.use(k.sprite("segunda"));
+    } else {
+      player.use(k.sprite("primera"));
+    }
+  });
 
   k.onKeyDown("left", () => {
     player.move(-SPEED, 0);
@@ -50,11 +102,29 @@ import Layout from "../layouts/Layout.astro";
   });
   k.onKeyDown("up", () => {
     player.move(0, -SPEED);
+    if (player.pos.y > 400) {
+      player.use(k.sprite("cuarta"));
+    } else if (player.pos.y > 300) {
+      player.use(k.sprite("tercera"));
+    } else if (player.pos.y > 200) {
+      player.use(k.sprite("segunda"));
+    } else {
+      player.use(k.sprite("primera"));
+    }
     if (player.curAnim() !== "walk-up") player.play("walk-up");
     return;
   });
   k.onKeyDown("down", () => {
     player.move(0, SPEED);
+    if (player.pos.y > 400) {
+      player.use(k.sprite("cuarta"));
+    } else if (player.pos.y > 300) {
+      player.use(k.sprite("tercera"));
+    } else if (player.pos.y > 200) {
+      player.use(k.sprite("segunda"));
+    } else {
+      player.use(k.sprite("primera"));
+    }
     if (player.curAnim() !== "walk-down") player.play("walk-down");
     return;
   });
