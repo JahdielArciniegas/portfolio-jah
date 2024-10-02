@@ -3,8 +3,8 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Welcome to Portfolio.">
-  <main style="height: 100%;">
-    <canvas style="height: 100%;" id="game"></canvas>
+  <main style="height: 100%; display: flex; justify-content: center;">
+    <canvas style="height: 200px;" id="game"></canvas>
   </main>
 </Layout>
 <script>
@@ -13,7 +13,7 @@ import Layout from "../layouts/Layout.astro";
   const k = kaboom({
     font: "sans-serif",
     canvas: document.querySelector("#game"),
-    background: [24, 24, 24],
+    background: [24, 24, 50],
   });
 
   const SPEED = 320;
@@ -76,22 +76,23 @@ import Layout from "../layouts/Layout.astro";
     k.anchor("center"),
   ]);
 
-  k.onUpdate("player", (player) => {
-    if (player.pos.y > 400) {
-      player.use(k.sprite("cuarta"));
-    } else if (player.pos.y > 300) {
-      player.use(k.sprite("tercera"));
-    } else if (player.pos.y > 200) {
-      player.use(k.sprite("segunda"));
-    } else {
-      player.use(k.sprite("primera"));
-    }
-  });
+  // k.onUpdate(() => {
+  //   if (player.pos.y > 400) {
+  //     player.use(k.sprite("cuarta"));
+  //   } else if (player.pos.y > 300) {
+  //     player.use(k.sprite("tercera"));
+  //   } else if (player.pos.y > 200) {
+  //     player.use(k.sprite("segunda"));
+  //   } else {
+  //     player.use(k.sprite("primera"));
+  //   }
+  // });
 
   k.onKeyDown("left", () => {
     player.move(-SPEED, 0);
     player.flipX = true;
     if (player.curAnim() !== "walk-side") player.play("walk-side");
+    console.log(player);
     return;
   });
   k.onKeyDown("right", () => {
@@ -102,29 +103,11 @@ import Layout from "../layouts/Layout.astro";
   });
   k.onKeyDown("up", () => {
     player.move(0, -SPEED);
-    if (player.pos.y > 400) {
-      player.use(k.sprite("cuarta"));
-    } else if (player.pos.y > 300) {
-      player.use(k.sprite("tercera"));
-    } else if (player.pos.y > 200) {
-      player.use(k.sprite("segunda"));
-    } else {
-      player.use(k.sprite("primera"));
-    }
     if (player.curAnim() !== "walk-up") player.play("walk-up");
     return;
   });
   k.onKeyDown("down", () => {
     player.move(0, SPEED);
-    if (player.pos.y > 400) {
-      player.use(k.sprite("cuarta"));
-    } else if (player.pos.y > 300) {
-      player.use(k.sprite("tercera"));
-    } else if (player.pos.y > 200) {
-      player.use(k.sprite("segunda"));
-    } else {
-      player.use(k.sprite("primera"));
-    }
     if (player.curAnim() !== "walk-down") player.play("walk-down");
     return;
   });
