@@ -1,118 +1,14 @@
 ---
 import Layout from "../layouts/Layout.astro";
+
+const img = "./person8bit.png";
 ---
 
 <Layout title="Welcome to Portfolio.">
-  <main style="height: 100%; display: flex; justify-content: center;">
-    <canvas style="height: 200px;" id="game"></canvas>
+  <main class="h-screen flex justify-center">
+    <div class="bg-[#2C1B47] h-full w-3/4">
+      <h1 class="h1">Portfolio Dev - Jahdiel Arciniegas</h1>
+      <p>Desarrollador Web con 2 años de experiencia</p>
+    </div>
   </main>
 </Layout>
-<script>
-  import kaboom from "kaboom";
-
-  const k = kaboom({
-    font: "sans-serif",
-    canvas: document.querySelector("#game"),
-    background: [24, 24, 50],
-  });
-
-  const SPEED = 320;
-  k.loadSprite("primera", "./PrimeraEv.png", {
-    sliceX: 4,
-    sliceY: 4,
-    anims: {
-      "idle-down": 0,
-      "walk-down": { from: 0, to: 3, loop: true, speed: 8 },
-      "idle-side": 4,
-      "walk-side": { from: 4, to: 7, loop: true, speed: 8 },
-      "idle-up": 8,
-      "walk-up": { from: 8, to: 11, loop: true, speed: 8 },
-    },
-  });
-
-  k.loadSprite("segunda", "./SegundaEv.png", {
-    sliceX: 4,
-    sliceY: 4,
-    anims: {
-      "idle-down": 0,
-      "walk-down": { from: 0, to: 3, loop: true, speed: 8 },
-      "idle-side": 4,
-      "walk-side": { from: 4, to: 7, loop: true, speed: 8 },
-      "idle-up": 8,
-      "walk-up": { from: 8, to: 11, loop: true, speed: 8 },
-    },
-  });
-
-  k.loadSprite("tercera", "./TerceraEv.png", {
-    sliceX: 4,
-    sliceY: 4,
-    anims: {
-      "idle-down": 0,
-      "walk-down": { from: 0, to: 3, loop: true, speed: 8 },
-      "idle-side": 4,
-      "walk-side": { from: 4, to: 7, loop: true, speed: 8 },
-      "idle-up": 8,
-      "walk-up": { from: 8, to: 11, loop: true, speed: 8 },
-    },
-  });
-
-  k.loadSprite("cuarta", "./CuartaEv.png", {
-    sliceX: 4,
-    sliceY: 4,
-    anims: {
-      "idle-down": 0,
-      "walk-down": { from: 0, to: 3, loop: true, speed: 8 },
-      "idle-side": 4,
-      "walk-side": { from: 4, to: 7, loop: true, speed: 8 },
-      "idle-up": 8,
-      "walk-up": { from: 8, to: 11, loop: true, speed: 8 },
-    },
-  });
-
-  const player = k.add([
-    k.sprite("primera", { anim: "idle-down" }),
-    k.scale(10),
-    k.pos(250, 100),
-    k.anchor("center"),
-  ]);
-
-  // k.onUpdate(() => {
-  //   if (player.pos.y > 400) {
-  //     player.use(k.sprite("cuarta"));
-  //   } else if (player.pos.y > 300) {
-  //     player.use(k.sprite("tercera"));
-  //   } else if (player.pos.y > 200) {
-  //     player.use(k.sprite("segunda"));
-  //   } else {
-  //     player.use(k.sprite("primera"));
-  //   }
-  // });
-
-  k.onKeyDown("left", () => {
-    player.move(-SPEED, 0);
-    player.flipX = true;
-    if (player.curAnim() !== "walk-side") player.play("walk-side");
-    console.log(player);
-    return;
-  });
-  k.onKeyDown("right", () => {
-    player.move(SPEED, 0);
-    player.flipX = false;
-    if (player.curAnim() !== "walk-side") player.play("walk-side");
-    return;
-  });
-  k.onKeyDown("up", () => {
-    player.move(0, -SPEED);
-    if (player.curAnim() !== "walk-up") player.play("walk-up");
-    return;
-  });
-  k.onKeyDown("down", () => {
-    player.move(0, SPEED);
-    if (player.curAnim() !== "walk-down") player.play("walk-down");
-    return;
-  });
-
-  // k.onClick(() => {
-  //   player.moveTo(k.mousePos());
-  // });
-</script>
